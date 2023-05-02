@@ -9,6 +9,7 @@ setup:
 	# Create python virtualenv & source it
 	# source ~/.devops/bin/activate
 	python3 -m venv ~/.devops
+	source ~/.devops/bin/activate
 
 install:
 	# This should be run from inside a virtualenv
@@ -17,8 +18,8 @@ install:
 
 test:
 	# Additional, optional, tests could go here
-	#python -m pytest -vv --cov=myrepolib tests/*.py
-	#python -m pytest --nbval notebook.ipynb
+	python -m pytest -vv --cov=myrepolib tests/*.py
+	python -m pytest --nbval notebook.ipynb
 
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
