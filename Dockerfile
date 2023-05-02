@@ -12,7 +12,7 @@ COPY . app.py /housefx/
 # Install packages from requirements.txt
 # hadolint ignore=DL3013,DL3042
 RUN pip install --upgrade pip &&\
-    pip install --trusted-host pypi.python.org -r requirements.txt
+    pip install --trusted-host pypi.python.org --root-user-action=ignore -r requirements.txt
 
 ## Step 4:
 # Expose port 80
