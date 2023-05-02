@@ -35,12 +35,12 @@ In your terminal:
 `./make_prediction.sh`
 
 ## Project Explanation
-*`.circleci/config.yml`: configuration for Circle CI pipeline.
-*`output_txt_files`: contains the output of the app running with docker and kubernetes.
-*`app.py`: the main logic of the udahousefx app that will calculate the house price with input and the trained models in `model_data`
-*`Dockerfile`: the instruction for docker to run the app inside container.
-*`make_prediction.sh`: the script to test calculation of udahousefx app
-*`requirements.txt`: the dependencies that udahousefx app need to work properly.
-*`run_docker.sh`: script to run the app inside docker container.
-*`run_kubernetes`: script to run the app inside kubernetes cluster.
-*`upload_docker`: script to upload the docker image to docker hub.
+* `.circleci/config.yml`: configuration for Circle CI pipeline.
+* `output_txt_files`: contains the output of the app running with docker and kubernetes.
+* `app.py`: the main logic of the udahousefx app that will calculate the house price with input and the trained models in `model_data`
+* `Dockerfile`: the instruction for docker to run the app inside container.
+* `make_prediction.sh`: the script to test calculation of udahousefx app
+* `requirements.txt`: the dependencies that udahousefx app need to work properly.
+* `run_docker.sh`: script to run the app inside docker container.
+* `run_kubernetes`: script to run the app inside kubernetes cluster.
+* `upload_docker`: script to upload the docker image to docker hub.
