@@ -7,7 +7,7 @@
 # Create dockerpath
 localtag="udahousefx"
 dockerpath="tien4dev/udahousefx"
-tagname="1.0.0"
+tagname="latest"
 
 # Step 2:  
 # Authenticate & tag
