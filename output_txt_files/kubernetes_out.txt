@@ -50,3 +50,25 @@ Handling connection for 8000
 0     0  6.575  296.0     15.3  396.9   4.98
 [2023-05-02 19:25:58,405] INFO in app: Output prediction: [20.35373177134412]
 127.0.0.1 - - [02/May/2023 19:25:58] "POST /predict HTTP/1.1" 200 -
+
+
+3. Result of prediction
+---------------------------------------------
+Last login: Wed May  3 02:06:56 on ttys002
+➜  ~ curl localhost:8000
+<h3>Sklearn Prediction Home</h3>%
+➜  ~ cd Documents/project4/udahousefx
+➜  udahousefx git:(main) ✗ ./make_prediction.sh
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
+➜  udahousefx git:(main) ✗ ./make_prediction.sh
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
