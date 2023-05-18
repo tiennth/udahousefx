@@ -106,9 +106,11 @@ jobs:
               echo "Latest image: ${LATEST_IMAGE}"
       
       - kubernetes/create-or-update-resource:
+          environment:
+            IMAGE_TAG: "${LATEST_IMAGE}"
           get-rollout-status: true
           resource-file-path: k8s/deployment.yml
-          resource-name: ${LATEST_IMAGE}
+          envsubst: true
           show-kubectl-command: true
 
   create-loadbalancer:

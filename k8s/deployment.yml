@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: udahousefx
-        image: tien4dev/udahousefx
+        image: "tien4dev/udahousefx:${IMAGE_TAG}"
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
