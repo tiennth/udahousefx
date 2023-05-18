@@ -104,6 +104,10 @@ jobs:
               image_name="tien4dev/udahousefx:R${latest_version}"
               echo 'export IMAGE_TAG="$image_name"' >> "$BASH_ENV"
               echo "Bash env: ${BASH_ENV}"
+      - run:
+          name: Test get version
+          command: |
+              echo "Image tag: ${IMAGE_TAG}"
       
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
