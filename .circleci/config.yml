@@ -101,6 +101,8 @@ jobs:
 workflows:
   udahousefx-pipeline:
     jobs:
-      # - build-and-push-docker-image
-      - build
+      # - build
+      - build-and-push-docker-image
+          # requires: [build]
+      
       # - deploy-to-eks
