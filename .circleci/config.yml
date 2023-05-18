@@ -120,4 +120,4 @@ workflows:
           requires: [build]      
       - deploy-to-eks:
           requires: [build-and-push-docker-image]
-          cluster-name: udapeople2
+          cluster-name: udapeople-2
