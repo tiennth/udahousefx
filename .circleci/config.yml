@@ -136,11 +136,11 @@ jobs:
 workflows:
   udahousefx-pipeline:
     jobs:
-      # - build
-      # - build-and-push-docker-image:
-      #     requires: [build]   
+      - build
+      - build-and-push-docker-image:
+          requires: [build]   
       # - create-loadbalancer:
       #     cluster-name: udapeople-2
       - deploy-to-eks:
-          # requires: [build-and-push-docker-image]
+          requires: [build-and-push-docker-image]
           cluster-name: udapeople-2
