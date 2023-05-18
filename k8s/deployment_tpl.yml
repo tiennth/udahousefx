@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udahousefx
+spec:
+  selector:
+    matchLabels:
+      app: udahousefx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: udahousefx
+    spec:
+      containers:
+      - name: udahousefx
+        image: "tien4dev/udahousefx:${IMAGE_TAG}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
