@@ -49,7 +49,7 @@ jobs:
             source ~/.devops/bin/activate
             make lint 
 
-  build-and-push-docker-image:
+  publish-docker-image:
     docker:
       - image: cimg/base:2023.05
     steps:
@@ -131,16 +131,16 @@ jobs:
 
       - kubernetes/create-or-update-resource:
           resource-file-path: k8s/service.yml
-          show-kubectl-command: true
+          get-rollout-status: true
 
 workflows:
   udahousefx-pipeline:
     jobs:
       - build
-      - build-and-push-docker-image:
+      - publish-docker-image:
           requires: [build]   
       # - create-loadbalancer:
       #     cluster-name: udapeople-2
       - deploy-to-eks:
-          requires: [build-and-push-docker-image]
+          requires: [publish-docker-image]
           cluster-name: udapeople-2
