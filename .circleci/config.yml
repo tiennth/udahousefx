@@ -90,6 +90,7 @@ jobs:
             Name of the EKS cluster
           type: string
     steps:
+      - checkout
       - kubernetes/install-kubectl
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
@@ -102,7 +103,7 @@ jobs:
               # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
 
               echo 'export LATEST_IMAGE="tien4dev/udahousefx:R${latest_version}"' >> "$BASH_ENV"
-              echo $LATEST_IMAGE
+              echo "Latest image: $LATEST_IMAGE"
       
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
@@ -115,9 +116,9 @@ jobs:
 workflows:
   udahousefx-pipeline:
     jobs:
-      - build
-      - build-and-push-docker-image:
-          requires: [build]      
+      # - build
+      # - build-and-push-docker-image:
+      #     requires: [build]      
       - deploy-to-eks:
-          requires: [build-and-push-docker-image]
+          # requires: [build-and-push-docker-image]
           cluster-name: udapeople-2
