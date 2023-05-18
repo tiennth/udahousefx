@@ -137,11 +137,11 @@ jobs:
 workflows:
   udahousefx-pipeline:
     jobs:
-      - build
-      - publish-docker-image:
-          requires: [build]   
-      # - create-loadbalancer:
-      #     cluster-name: udahousefx
-      - deploy-to-eks:
-          requires: [publish-docker-image]
+      - create-loadbalancer:
           cluster-name: udahousefx
+      # - build
+      # - publish-docker-image:
+      #     requires: [build]   
+      # - deploy-to-eks:
+      #     requires: [publish-docker-image]
+      #     cluster-name: udahousefx
