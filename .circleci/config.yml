@@ -101,14 +101,14 @@ jobs:
               latest_version=$( curl https://kvdb.io/7AiAwC67kGTnWWyt6acGGm/udahousefx_image_version )
               echo "Latest version ${latest_version}"
               # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
-
-              echo 'export LATEST_IMAGE="tien4dev/udahousefx:R${latest_version}"' >> "$BASH_ENV"
-              echo "Latest image: $LATEST_IMAGE"
+              image_name="tien4dev/udahousefx:R${latest_version}"
+              echo 'export LATEST_IMAGE="$image_name"' >> "$BASH_ENV"
+              echo "Latest image: ${LATEST_IMAGE}"
       
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: k8s/deployment.yml
-          resource-name: $LATEST_IMAGE
+          resource-name: ${LATEST_IMAGE}
           show-kubectl-command: true
 
   create-loadbalancer:
