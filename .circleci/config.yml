@@ -101,18 +101,18 @@ jobs:
               latest_version=$( curl https://kvdb.io/7AiAwC67kGTnWWyt6acGGm/udahousefx_image_version )
               echo "Latest version ${latest_version}"
               # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
-              image_name="tien4dev/udahousefx:R${latest_version}"
-              echo 'export IMAGE_TAG="${image_name}"' >> "$BASH_ENV"
-              echo "Image name: ${image_name}"
+              export IMAGE_TAG="tien4dev/udahousefx:R${latest_version}"
+              
+              echo "Image name: ${IMAGE_TAG}"
+
+              circleci env subst < k8s/deployment_tpl.yml > k8s/deployment.yml
       - run:
           name: Test get version
           command: |
-              echo "Image tag: ${IMAGE_TAG}"
+              cat k8s/deployment.yml
       
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
           resource-file-path: k8s/deployment.yml
-          envsubst: true
           show-kubectl-command: true
 
   create-loadbalancer:
@@ -130,7 +130,6 @@ jobs:
           cluster-name: << parameters.cluster-name >>
 
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
           resource-file-path: k8s/service.yml
           show-kubectl-command: true
 
@@ -140,8 +139,8 @@ workflows:
       # - build
       # - build-and-push-docker-image:
       #     requires: [build]   
-      - create-loadbalancer:
-          cluster-name: udapeople-2
-      # - deploy-to-eks:
-      #     # requires: [build-and-push-docker-image]
+      # - create-loadbalancer:
       #     cluster-name: udapeople-2
+      - deploy-to-eks:
+          # requires: [build-and-push-docker-image]
+          cluster-name: udapeople-2
