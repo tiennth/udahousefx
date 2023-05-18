@@ -116,13 +116,32 @@ jobs:
           show-kubectl-command: true
 
   create-loadbalancer:
+    docker:
+      - image: cimg/aws:2023.04
+    parameters:
+        cluster-name:
+          description: |
+            Name of the EKS cluster
+          type: string
+    steps:
+      - checkout
+      - kubernetes/install-kubectl
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: k8s/service.yml
+          show-kubectl-command: true
 
 workflows:
   udahousefx-pipeline:
     jobs:
       # - build
       # - build-and-push-docker-image:
-      #     requires: [build]      
-      - deploy-to-eks:
-          # requires: [build-and-push-docker-image]
+      #     requires: [build]   
+      - create-loadbalancer:
           cluster-name: udapeople-2
+      # - deploy-to-eks:
+      #     # requires: [build-and-push-docker-image]
+      #     cluster-name: udapeople-2
