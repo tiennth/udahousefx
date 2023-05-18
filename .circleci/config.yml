@@ -102,12 +102,10 @@ jobs:
               echo "Latest version ${latest_version}"
               # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
               image_name="tien4dev/udahousefx:R${latest_version}"
-              echo 'export LATEST_IMAGE="$image_name"' >> "$BASH_ENV"
-              echo "Latest image: ${LATEST_IMAGE}"
+              echo 'export IMAGE_TAG="$image_name"' >> "$BASH_ENV"
+              echo "Latest image: ${IMAGE_TAG}"
       
       - kubernetes/create-or-update-resource:
-          environment:
-            IMAGE_TAG: "${LATEST_IMAGE}"
           get-rollout-status: true
           resource-file-path: k8s/deployment.yml
           envsubst: true
