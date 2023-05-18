@@ -84,6 +84,11 @@ jobs:
   deploy-to-eks:
     docker:
       - image: cimg/aws:2023.04
+    parameters:
+        cluster-name:
+          description: |
+            Name of the EKS cluster
+          type: string
     steps:
       - kubernetes/install-kubectl
       - aws-eks/update-kubeconfig-with-authenticator:
