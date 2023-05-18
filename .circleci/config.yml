@@ -132,6 +132,7 @@ jobs:
 
       - kubernetes/create-or-update-resource:
           resource-file-path: k8s/service.yml
+          resource-name: service/udahousefx
           get-rollout-status: true
 
 workflows:
