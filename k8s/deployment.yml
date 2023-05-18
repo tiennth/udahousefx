@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udapeople-backend
+  name: udahousefx
 spec:
   selector:
     matchLabels:
-      app: udapeople-backend
+      app: udahousefx
   replicas: 2
   template:
     metadata:
       labels:
-        app: udapeople-backend
+        app: udahousefx
     spec:
       containers:
-      - name: udapeople-backend
-        image: tien4dev/udapeople-backend
+      - name: udahousefx
+        image: tien4dev/udahousefx
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
