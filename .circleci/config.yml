@@ -42,7 +42,6 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
-      # run lint!
       - run:
           name: run lint
           command: |
@@ -136,11 +135,11 @@ jobs:
 workflows:
   udahousefx-pipeline:
     jobs:
-      - create-loadbalancer:
-          cluster-name: udahousefx
-      # - build
-      # - publish-docker-image:
-      #     requires: [build]   
-      # - deploy-to-eks:
-      #     requires: [publish-docker-image]
+      # - create-loadbalancer:
       #     cluster-name: udahousefx
+      - build
+      - publish-docker-image:
+          requires: [build]   
+      - deploy-to-eks:
+          requires: [publish-docker-image]
+          cluster-name: udahousefx
