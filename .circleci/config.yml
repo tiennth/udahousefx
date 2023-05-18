@@ -3,6 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 version: 2.1
+
+orbs:
+  kubernetes: circleci/kubernetes@1.3.1
+  aws-eks: circleci/aws-eks@2.2.0
+
 jobs:
   build:
     docker:
@@ -80,29 +85,34 @@ jobs:
     docker:
       - image: cimg/aws:2023.04
     steps:
-      - run:
-          name: Install kubectl
-          command: |
-              curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-              sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-      - run:
-          name: Configure kubectl
-          command: |
-              aws eks --region us-east-1 update-kubeconfig --name udapeople2
-              kubectl version
+      - kubernetes/install-kubectl
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
       
       - run:
-          name: Deploy new version
+          name: Get new version
           command: |
               latest_version=$( curl https://kvdb.io/7AiAwC67kGTnWWyt6acGGm/udahousefx_image_version )
               echo "Latest version ${latest_version}"
-              kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
+              # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
+
+              echo 'export LATEST_IMAGE="tien4dev/udahousefx:R${latest_version}"' >> "$BASH_ENV"
+              echo $LATEST_IMAGE
+      
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: k8s/deployment.yaml
+          resource-name: $LATEST_IMAGE
+          show-kubectl-command: true
+
+  create-loadbalancer:
 
 workflows:
   udahousefx-pipeline:
     jobs:
-      # - build
-      - build-and-push-docker-image
-          # requires: [build]
-      
-      # - deploy-to-eks
+      - build
+      - build-and-push-docker-image:
+          requires: [build]      
+      - deploy-to-eks:
+          requires: [build-and-push-docker-image]
+          cluster-name: udapeople2
