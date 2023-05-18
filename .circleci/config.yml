@@ -101,7 +101,7 @@ jobs:
               latest_version=$( curl https://kvdb.io/7AiAwC67kGTnWWyt6acGGm/udahousefx_image_version )
               echo "Latest version ${latest_version}"
               # kubectl set image deployment/udahousefx udahousefx=tien4dev/udahousefx:"R${latest_version}"
-              export IMAGE_TAG="tien4dev/udahousefx:R${latest_version}"
+              export IMAGE_TAG="R${latest_version}"
               
               echo "Image name: ${IMAGE_TAG}"
 
