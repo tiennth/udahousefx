@@ -141,7 +141,7 @@ workflows:
       - publish-docker-image:
           requires: [build]   
       # - create-loadbalancer:
-      #     cluster-name: udapeople-2
+      #     cluster-name: udahousefx
       - deploy-to-eks:
           requires: [publish-docker-image]
-          cluster-name: udapeople-2
+          cluster-name: udahousefx
